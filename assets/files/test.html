@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=2">
+    <script type="text/javascript">
+            function fromFlutter(data) {
+            //     if (data.topic === "OPEN_SIGN_WIDGET") {
+            //     console.log(data);
+            //     console.log('URL: ', data.payload.url)
+            // } 
+            var jsonData = JSON.stringify(data);
+            console.log(jsonData);
+            console.log("URL:" , jsonData.topic);
+            console.log(jsonData.topic.payload);
+
+            // var map = JSON.parse(data);
+
+            // print(map);
+
+            // var map2 = new Map(JSON.parse(str));
+
+            // var map = JSON.parse(data);
+
+
+            const testingMapDataJS = {
+                topic: "Hey..",
+                payload: "Ha ha ha"
+            }
+
+            // console.log(map.payload.url);
+            window.Flutter.postMessage(testingMapDataJS);
+    }
+        // window.parent.addEventListener('message', handleMessage, false);
+        // window.addEventListener('message', handleMessage, false);
+        // function handleMessage(e) {
+        //     console.log("post message handler :: STARTED")
+        // }
+        function add(num1, num2) {
+            var result = num1 + num2;
+            document.getElementById("result").innerHTML
+                = num1 + " + " + num2 + " = " + result;
+            console.log(result);
+
+        }
+    </script>
+
+</head>
+
+<body>
+    <p>Hello.. Flutter..</p>
+    <p id="result"></p>
+</body>
+
+</html>

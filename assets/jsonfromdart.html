@@ -1,0 +1,63 @@
+<html>
+
+<head>
+    <style>
+        .card-container {
+            display: flex;
+            max-height: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+    </style>
+    <script>    function clientLoaded() {
+            window.helloSignClient = new window.HelloSign({
+                clientId: '3de48c5892a4cd5b174d8ec348d1f327'
+            });
+            window.helloSignClient.on('sign', (data) => {
+            console.log("DOC_SIGNED");
+            });
+
+            window.helloSignClient.on('close', (data) => {
+            console.log("WIDGET_CLOSED");
+            });
+
+            window.helloSignClient.on('error', (data) => {
+            window.helloSignClient.close();
+            console.log("ERROR_WIHT_URL");
+            alert("ERROR_WITH_URL : " + data.code);
+            });
+        }
+
+    </script>
+    <script src="./embedded.production.min.js" onload="clientLoaded()"></script>
+    <script>
+        window.addEventListener("flutterInAppWebViewPlatformReady", function (event) {
+
+            window.flutter_inappwebview.callHandler('handlerFoo')
+                .then(function (result) {
+                    console.log("post message handler : STARTED");
+                    console.log(result);
+                    console.log(result.topic);
+
+                    if (result.topic === "OPEN_SIGN_WIDGET") {
+                        console.log(result);
+                        console.log('URL:: ', result.payload.url);
+                        window.helloSignClient.open(result.payload.url, {
+                            testMode: true
+                        });
+                    }
+                });
+        });
+        }
+    </script>
+</head>
+
+<body>
+<div class="card-container">
+</div>
+</body>
+
+</html>
